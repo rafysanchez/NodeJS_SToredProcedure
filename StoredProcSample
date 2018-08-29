@@ -1,0 +1,27 @@
+var mysql = require("mysql");
+
+var con = mysql.createConnection({
+    host: "localhost",
+    port: "8889",
+    user: "root",
+    password: "root",
+    database: "ResetAccountTest"
+});
+
+con.connect(function(err){
+    if(err){
+       console.log('Error connecting to Database');
+       return;
+    } console.log('Connection established');
+});
+
+var sql = con.query('call newAccount(?, ?, ?)', [accountTest.email, accountTest.password, accountTest.bit], function(err, result) { 
+      if (err) throw err; 
+      console.log(result.insertId); 
+});
+
+con.end(function(err) {
+// The connection is terminated gracefully
+// Ensures all previously enqueued queries are still
+// before sending a COM_QUIT packet to the MySQL server.
+});
